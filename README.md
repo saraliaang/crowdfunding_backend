@@ -90,5 +90,5 @@ Fundraiser Purpose: Users pledge money to gain access to the time machine for a 
 
 
 ### DB Schema
-![]( {{ ./relative/path/to/your/schema/image.png }} )
+![]( database.drawio.svg)
 
