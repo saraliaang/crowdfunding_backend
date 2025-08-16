@@ -31,10 +31,11 @@ Fundraiser Purpose: Users pledge money to gain access to the time machine for a 
 - **Time Machine Recommendation / Review** - Playful endorsements to make the the page engaging.
 
 - **Fund Your Trip** - Button to allow users to pledge or create their own campaign &rarr; route to *Creat New Fundraiser Page*.
+- **Search bar** - Search Specific Fundraiser
 
 
 #### 2. Create New Fundraiser Page
-- **Form with Fundraiser Details** – Users can create a new fundraising campaign by entering:
+- **Form with Fundraiser Details** – Users can create a new fundraising campaign by entering
   - **Title** - name of the trip
   - **Owner** - a user who created the project
   - **Description** - What the user hopes to experience 
@@ -45,7 +46,7 @@ Fundraiser Purpose: Users pledge money to gain access to the time machine for a 
 
 - **Automatic Goal Calculation** - The funding goal is derived from the destination year:
   - Example: 300 years ago &rarr; 1.3c &rarr; $100,000,000
-  - Longer trip requires higher speed &rarr; higher pledges
+  - Longer trip requires higher **speed** &rarr; higher pledges
   
 - **Form Validation & Error Pages** – Friendly error messages if fields are missing, invalid, or incorrected formatted.
 
@@ -77,15 +78,16 @@ Fundraiser Purpose: Users pledge money to gain access to the time machine for a 
 ### API Spec
 
 
-| URL | HTTP Method | Purpose | Request Body | Success Response Code | Authentication/Authorisation |
-| --- | ----------- | ------- | ------------ | --------------------- | ---------------------------- |
-| /fundraisers | GET | Fetch all fundraisers | N/A | 200 | None |
-| /fundraisers/<:id> | GET | Fetch a fundraiser | N/A | 200 | None |
-| /fundraisers | POST | Create a new fundraiser| JSON Payload | 201 | Any logged in user |
-| /fundraisers/<:id> | DELETE | Delete a fundraiser| JSON Payload | 204 | Creator of the fundraiser |
-| /fundraisers/<:id>| PUT | update the description and image | JSON Payload | 200 | Creator of the fundraiser |
-| /user | POST | Create a user account | N/A | 200 | None |
-| /pledges | POST | Create a pledge | N/A | 200 | None |
+| URL                | HTTP Method | Purpose                          | Request Body | Success Response Code | Authentication/Authorisation |
+| ------------------ | ----------- | -------------------------------- | ------------ | --------------------- | ---------------------------- |
+| /fundraisers       | GET         | Fetch all fundraisers            | N/A          | 200                   | None                         |
+| /fundraisers/<:id> | GET         | Fetch a fundraiser               | N/A          | 200                   | None                         |
+| /fundraisers       | POST        | Create a new fundraiser          | JSON Payload | 201                   | Any logged in user           |
+| /fundraisers/<:id> | DELETE      | Delete a fundraiser              | JSON Payload | 204                   | Creator of the fundraiser    |
+| /fundraisers/<:id> | PUT         | update the description and image | JSON Payload | 200                   | Creator of the fundraiser    |
+| /user              | POST        | Create a user account            | N/A          | 200                   | None                         |
+| /pledges           | GET         | get all pledges                  | N/A          | 200                   | None                         |
+| /pledges           | POST        | Create a pledge                  | JSON payload | 201                   | Any logged in user           |
 
 
 
