@@ -1,13 +1,20 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 class Fundraiser(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
     destination_year = models.IntegerField()
+    # target_amount = 
     image = models.URLField()
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(
+        get_user_model(),
+        related_name='owned_fundraisers',
+        on_delete=models.CASCADE
+    )
 
 # other attributes: 
 # speed(auto conversion), goal (auto conversion) 
@@ -28,4 +35,11 @@ class Pledge(models.Model):
         #this name has to match the one inside the serializer
         on_delete=models.CASCADE
         #if you delete the fundraiser, the pledges also got deleted
+    )
+
+    supporter = models.ForeignKey(
+        get_user_model(),
+        related_name = 'pledges',
+        on_delete=models.CASCADE
+
     )
