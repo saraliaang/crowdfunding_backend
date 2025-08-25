@@ -57,3 +57,25 @@ class PledgeList(APIView):
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+class PledgeDetail(APIView):
+    def get_pledge(self,pk):
+        try:    
+            pledge = Pledge.objects.get(pk=pk)
+            return pledge
+        except Pledge.DoesNotExist:
+            raise Http404
+        
+    def get(self,request,pk):
+        pledge = self.get_pledge(pk)
+        serialized = PledgeSerilaizer(pledge)
+        return Response(serialized.data)
+        
+
+
+
+#seperat get() and get_object() because:Its only job is to fetch one Fundraiser from the DB or raise Http404.
+
+# It’s reusable: if later you want to implement PUT (update) or DELETE in the same view, you can call self.get_object(pk) again, instead of repeating the query and error handling logic.
+
+# Keeps database lookup logic in one place.

@@ -24,3 +24,8 @@ urlpatterns = [
     path('', include('users.urls')),
     path('api-token-auth/', CustomAuthToken.as_view(), name='api_token_auth'),
 ]
+
+
+#authentication on Insomnia
+#after pass the username and password thru the post request on api-token-auth/, a token would be created or get and show in the response
+# Enter the token in the Auth - bearer token session : token : --- prefix: token
