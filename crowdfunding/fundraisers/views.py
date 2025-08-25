@@ -15,7 +15,6 @@ class FundraiserList(APIView):
         serializer = FundraiserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(owner=request.user)
-            print(request.user)
             return Response(
                 serializer.data,
                 status=status.HTTP_201_CREATED
