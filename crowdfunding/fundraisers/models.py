@@ -33,7 +33,7 @@ class Fundraiser(models.Model):
         return 1+float(self.target)*5e-7
     @property
     def current_lightyear(self):
-        return float(self.amount_raised)/float(self.target)*self.total_lightyear
+        return self.pledges.aggregate(total=models.Sum('amount'))['total'] or 0
 
 
 class Pledge(models.Model):

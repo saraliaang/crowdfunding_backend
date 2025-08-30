@@ -8,7 +8,6 @@ class FundraiserSerializer(serializers.ModelSerializer):
     current_lightyear = serializers.ReadOnlyField()
     target = serializers.ReadOnlyField() 
 
-
     class Meta:
         model = Fundraiser
         fields = '__all__'
@@ -23,6 +22,17 @@ class PledgeSerilaizer(serializers.ModelSerializer):
 class FundraiserDetialSerializer(FundraiserSerializer):
     pledges = PledgeSerilaizer(many=True, read_only=True)
 
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        instance.image = validated_data.get('image', instance.image)
+        instance.is_open = validated_data.get('is_open', instance.is_open)
+        instance.owner = validated_data.get('owner', instance.owner)
+        instance.save()
+        return instance
+
+
+    
 
 #when we taking in something for class, it means inheretance, whearas in funciton, it measn parameter 
 #create FundraiserSerializer then FundraiserDetialSerializer is because we only want to see the detail of pledges when one fundraiser is pulled. To prevent the bloating of base serializer
