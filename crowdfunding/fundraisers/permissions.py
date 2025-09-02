@@ -1,4 +1,5 @@
 from rest_framework import permissions 
+from rest_framework.exceptions import NotAuthenticated, PermissionDenied
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     message = 'You need to be owner of this fundraiser in order to perform this action.'
@@ -15,4 +16,13 @@ class IsSupporterOrReadOnly(permissions.BasePermission):
         return obj.supporter == request.user
     
 class CustomIsAuthenticatedOrReadOnly(permissions.IsAuthenticatedOrReadOnly):
-    message = "You must be logged in to create a pledge."
+    def has_permission(self, request, view):
+        # Allow safe methods (GET, HEAD, OPTIONS) for everyone
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        
+        # If user is not authenticated, raise custom error
+        if not request.user or not request.user.is_authenticated:
+            raise NotAuthenticated(detail="You must be logged in to create a pledge or fundraiser.")
+        
+        return True
