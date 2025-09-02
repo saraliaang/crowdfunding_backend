@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.http import Http404
 from .models import Fundraiser, Pledge
 from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetialSerializer, PledgeDetailSerializer
-from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly,CustomIsAuthenticatedOrReadOnly
 
 class FundraiserList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]           # View-level permissions (has_permission) → always run automatically.
@@ -65,7 +65,7 @@ class FundraiserDetail(APIView):
             )
 
 class PledgeList(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [CustomIsAuthenticatedOrReadOnly]
     
     def get(self, request):
         pledges = Pledge.objects.all()
