@@ -1,6 +1,3 @@
-# crowdfunding_backend
-SheCodes Python django project
-
 # Crowdfunding Back End
 Sara Liang 
 
@@ -83,11 +80,15 @@ Fundraiser Purpose: Users pledge money to gain access to the time machine for a 
 | /fundraisers       | GET         | Fetch all fundraisers            | N/A          | 200                   | None                         |
 | /fundraisers/<:id> | GET         | Fetch a fundraiser               | N/A          | 200                   | None                         |
 | /fundraisers       | POST        | Create a new fundraiser          | JSON Payload | 201                   | Any logged in user           |
-| /fundraisers/<:id> | DELETE      | Delete a fundraiser              | JSON Payload | 204                   | Creator of the fundraiser    |
 | /fundraisers/<:id> | PUT         | update the description and image | JSON Payload | 200                   | Creator of the fundraiser    |
-| /user              | POST        | Create a user account            | N/A          | 200                   | None                         |
+| /user              | Get         | Get all users                    | N/A          | 200                   | None                         |
+| /user              | POST        | Create a user account            | JSON payload | 201                   | None                         |
+| /users/<:id>       | GET         | Fetch a user                     | N/A          | 200                   | None                         |
 | /pledges           | GET         | get all pledges                  | N/A          | 200                   | None                         |
+| /pledges/<:id>     | GET         | get a pledges                    | N/A          | 200                   | None                         |
 | /pledges           | POST        | Create a pledge                  | JSON payload | 201                   | Any logged in user           |
+| /pledges           | PUT         | Update a pledge                  | JSON payload | 200                   | Supporter of the pledge      |
+
 
 
 

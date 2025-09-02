@@ -3,11 +3,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 from .models import Fundraiser, Pledge
-from .serializers import FundraiserSerializer, PledgeSerilaizer, FundraiserDetialSerializer
-from .permissions import IsOwnerOrReadOnly
+from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetialSerializer, PledgeDetailSerializer
+from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly
 
 class FundraiserList(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]           # View-level permissions (has_permission) → always run automatically.
+    # View-level permissions (has_permission) → always run automatically.
+
     def get(self, request):
         fundraisers = Fundraiser.objects.all()
         serializer = FundraiserSerializer(fundraisers, many = True)
@@ -35,6 +37,7 @@ class FundraiserDetail(APIView):
             # self.throttle_classes()
             fundraiser = Fundraiser.objects.get(pk=pk)
             self.check_object_permissions(self.request, fundraiser)
+            # Object-level permissions (has_object_permission) → only run if you explicitly call
             return fundraiser
         except Fundraiser.DoesNotExist:
             raise Http404
@@ -66,12 +69,12 @@ class PledgeList(APIView):
     
     def get(self, request):
         pledges = Pledge.objects.all()
-        serializer = PledgeSerilaizer(pledges, many =True)
+        serializer = PledgeSerializer(pledges, many =True)
         return Response(serializer.data)
     
 
     def post(self, request):
-        serializer = PledgeSerilaizer(data=request.data)
+        serializer = PledgeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(supporter=request.user)
             return Response(
@@ -85,17 +88,38 @@ class PledgeList(APIView):
             )
 
 class PledgeDetail(APIView):
+    permission_classes = [
+        IsSupporterOrReadOnly
+    ]
     def get_pledge(self,pk):
         try:    
             pledge = Pledge.objects.get(pk=pk)
+            self.check_object_permissions(self.request, pledge)
             return pledge
         except Pledge.DoesNotExist:
             raise Http404
         
     def get(self,request,pk):
         pledge = self.get_pledge(pk)
-        serialized = PledgeSerilaizer(pledge)
+        serialized = PledgeDetailSerializer(pledge)
         return Response(serialized.data)
+    
+    def put(self,request,pk):
+        pledge = self.get_pledge(pk)
+        serializer = PledgeDetailSerializer(
+            instance = pledge,
+            data=request.data,
+            partial=True
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
     
     
 

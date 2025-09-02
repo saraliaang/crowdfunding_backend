@@ -37,7 +37,7 @@ class CustomUserDetail(APIView):
         except CustomUser.DoesNotExist:
             raise Http404
         
-    def ger(self,request,pk):
+    def get(self,request,pk):
         user = self.get_object(pk)
         serializer = CustomUserSerializer(user)
         return Response(serializer.data)

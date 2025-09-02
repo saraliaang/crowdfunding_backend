@@ -19,7 +19,7 @@ class Fundraiser(models.Model):
     )
 
     def save(self, *arg, **kwargs):
-        if self.destination_year and not self.target:
+        if self.destination_year:
             year_diff = datetime.now().year - self.destination_year
             self.target = year_diff*10000
         super().save(*arg, **kwargs)
