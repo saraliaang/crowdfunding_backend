@@ -90,8 +90,6 @@ Fundraiser Purpose: Users pledge money to gain access to the time machine for a 
 | /pledges           | PUT         | Update a pledge                  | JSON payload | 200                   | Supporter of the pledge      |
 
 
-
-
 ### DB Schema
 ![]( database.drawio.svg)
 
