@@ -70,8 +70,37 @@ Fundraiser Purpose: Users pledge money to gain access to the time machine for a 
 - Display backer count and pledge amounts similar to Kickstarter.  
 - Fun “time travel milestones” as users hit funding thresholds (small animations or icons along the progress bar).
 
+### Authentication and permission
+- Token is used as authentication method.
+- Permission classes:
+  - IsAuthenticatedOrReadOnly - Need to authenticate user when creating fundraiser and pledge, otherwise only safe methods are allowed.
+  - IsOwnerOrReadOnly - a customed permission class - Need to authenticate user as owner when making changes to a fundraiser or a class, otherwise only safe methods are allowed.
 
 
+### Screenshot of Insomnia, demonstrating a successful request for any endpoint.
+![GET requst](img/screenshot_get_request.png)
+![POST request](img/screenshot_post_request.png)
+
+### Steps to create user and fundraiser
+#### To create user:
+- endpoint: POST: https://pastport-python-f065da9c4d77.herokuapp.com/users/
+- body data:
+{
+	"username":"to_be_filled",
+	"password":"to_be_filled",
+	"email":"to_be_filled"
+}
+
+#### To create fundraiser:
+- endpoint: POST: https://pastport-python-f065da9c4d77.herokuapp.com/fundraisers/
+- body data:
+{
+	"title": "to play with t-rex",
+	"description":"to_be_filled",
+	"destination_year": to_be_filled,
+	"image":"to_be_filled",
+	"is_open":to_be_filled
+}
 ### API Spec
 
 

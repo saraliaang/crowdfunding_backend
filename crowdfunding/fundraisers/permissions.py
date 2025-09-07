@@ -1,5 +1,5 @@
 from rest_framework import permissions 
-from rest_framework.exceptions import NotAuthenticated, PermissionDenied
+from rest_framework.exceptions import NotAuthenticated
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     message = 'You need to be owner of this fundraiser in order to perform this action.'
