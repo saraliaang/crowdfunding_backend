@@ -7,7 +7,7 @@ from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetia
 from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly,CustomIsAuthenticatedOrReadOnly
 
 class FundraiserList(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]           # View-level permissions (has_permission) → always run automatically.
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]           
     # View-level permissions (has_permission) → always run automatically.
 
     def get(self, request):
