@@ -14,7 +14,8 @@ class FundraiserSerializer(serializers.ModelSerializer):
         #we want to serialize all the fields
 
 class PledgeSerializer(serializers.ModelSerializer):
-    supporter = serializers.ReadOnlyField(source='supporter.id')
+    supporter_id = serializers.ReadOnlyField(source='supporter.id')
+    supporter_username = serializers.ReadOnlyField(source='supporter.username')
     class Meta:
         model = Pledge
         fields= '__all__'
@@ -26,9 +27,9 @@ class FundraiserDetialSerializer(FundraiserSerializer):
         instance.title = validated_data.get('title', instance.title)
         instance.description = validated_data.get('description', instance.description)
         instance.image = validated_data.get('image', instance.image)
-        instance.is_open = validated_data.get('is_open', instance.is_open)
-        instance.destination_year = validated_data.get('destination_year', instance.destination_year)
-        instance.target = validated_data.get('target', instance.target)
+        # instance.is_open = validated_data.get('is_open', instance.is_open)
+        # instance.destination_year = validated_data.get('destination_year', instance.destination_year)
+        # instance.target = validated_data.get('target', instance.target)
         instance.save()
         return instance
     
