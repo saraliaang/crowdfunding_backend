@@ -14,7 +14,7 @@ class FundraiserSerializer(serializers.ModelSerializer):
         #we want to serialize all the fields
 
 class PledgeSerializer(serializers.ModelSerializer):
-    supporter_id = serializers.ReadOnlyField(source='supporter.id')
+    supporter = serializers.ReadOnlyField(source='supporter.id')
     supporter_username = serializers.ReadOnlyField(source='supporter.username')
     class Meta:
         model = Pledge
