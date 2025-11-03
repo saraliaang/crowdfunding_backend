@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from datetime import datetime
+from decimal import Decimal
+
 
 
 # Create your models here.
@@ -33,7 +35,10 @@ class Fundraiser(models.Model):
         return 1+float(self.target)*5e-7
     @property
     def current_lightyear(self):
-        return self.pledges.aggregate(total=models.Sum('amount'))['total'] or 0
+        total_ly = Decimal("1") + (Decimal(str(self.target)) * Decimal("5e-7"))
+        amount = self.pledges.aggregate(models.Sum('amount'))['amount__sum'] or Decimal("0")
+
+        return (Decimal(amount) / Decimal(self.target)) * total_ly
 
 
 class Pledge(models.Model):

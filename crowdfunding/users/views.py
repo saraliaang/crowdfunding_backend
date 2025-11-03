@@ -17,9 +17,13 @@ class CustomUserList(APIView):
         serializer = CustomUserSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save()
+            user = serializer.save()
+            token, created = Token.objects.get_or_create(user=user)
             return Response(
-                serializer.data,
+                {
+                    "user": serializer.data,
+                    "token": token.key
+                },
                 status=status.HTTP_201_CREATED
             )
         
@@ -52,7 +56,6 @@ class CustomAuthToken(ObtainAuthToken):
 
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
-        print(user)
         token, created = Token.objects.get_or_create(user=user)
 
         return Response({
